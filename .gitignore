@@ -1,0 +1,4 @@
+# Never commit the real inventory (contains hosts/IPs) or any keys.
+inventory.json
+*.pem
+*.key

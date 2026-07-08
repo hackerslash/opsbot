@@ -1,0 +1,72 @@
+{
+  "pem_dir": "/absolute/path/to/your/PEM files",
+  "targets": {
+    "dev.api": {
+      "host": "10.0.0.1",
+      "user": "ubuntu",
+      "key": "your-dev-key.pem",
+      "os": "ubuntu24",
+      "env": "dev",
+      "method": "ssh",
+      "tags": ["api", "nginx"],
+      "notes": "Dev API server (nginx -> app on :8000)"
+    },
+    "uat.api": {
+      "host": "10.0.0.2",
+      "user": "ubuntu",
+      "key": "your-dev-key.pem",
+      "os": "ubuntu24",
+      "env": "uat",
+      "method": "ssh",
+      "tags": ["api", "nginx"]
+    },
+    "dev.web": {
+      "host": "10.0.0.3",
+      "user": "ubuntu",
+      "key": "your-dev-key.pem",
+      "os": "ubuntu24",
+      "env": "dev",
+      "method": "ssh",
+      "tags": ["web", "nginx"]
+    },
+    "assistant.dev": {
+      "host": "10.0.0.10",
+      "user": "ec2-user",
+      "key": "your-lightsail-key.pem",
+      "os": "amazonlinux2023",
+      "env": "dev",
+      "method": "ssh",
+      "tags": ["api", "worker"],
+      "notes": "Lightsail box: dnf + firewall-cmd, app on :8080"
+    },
+    "prod.api.1": {
+      "instance_id": "i-0123456789abcdef0",
+      "os": "amazonlinux2023",
+      "env": "prod",
+      "method": "ssm",
+      "tags": ["api", "nginx"],
+      "notes": "Reached via AWS SSM, no PEM key"
+    },
+    "bastion": {
+      "host": "203.0.113.10",
+      "user": "ubuntu",
+      "key": "your-bastion-key.pem",
+      "os": "ubuntu24",
+      "env": "prod",
+      "method": "ssh",
+      "tags": ["bastion"],
+      "notes": "Jump host — not a run target, referenced by other targets via \"bastion\" field"
+    },
+    "prod.private.1": {
+      "host": "10.0.1.50",
+      "user": "ubuntu",
+      "key": "your-prod-key.pem",
+      "os": "ubuntu24",
+      "env": "prod",
+      "method": "ssh",
+      "bastion": "bastion",
+      "tags": ["api"],
+      "notes": "Private subnet host — connect.sh tunnels through bastion automatically"
+    }
+  }
+}
